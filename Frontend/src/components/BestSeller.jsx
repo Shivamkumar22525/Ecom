@@ -10,7 +10,7 @@ const BestSeller = () => {
     useEffect(()=>{
         const findProduct = products.filter((item)=>(item.bestseller));
         setBestSeller(findProduct.slice(0,5));
-    },[])
+    },[products])
   return (
     <div className='my-10'>
         <div className='text-center text-3xl py-8'>
