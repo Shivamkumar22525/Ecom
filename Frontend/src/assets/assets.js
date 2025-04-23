@@ -73,7 +73,8 @@ import contact_img from './contact_img.png'
 import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
 import cross_icon from './cross_icon.png'
-import vamplogo from './vamplogo.png'
+import vamplogo from './final vamp logo.png'
+
 
 export const assets = {
     logo,
@@ -95,6 +96,7 @@ export const assets = {
     stripe_logo,
     cross_icon,
     vamplogo
+    
 }
 
 export const products = [
