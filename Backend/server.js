@@ -9,19 +9,22 @@ import cartRouter from './route/cartRoute.js';
 import orderRouter from './route/orderRoute.js';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
+// ✅ Connect to DB and Cloudinary
 connectDB();
 connectCloudinary();
 
-// ✅ CORS first!
+// ✅ Define allowed origins
 const allowedOrigins = [
   "https://vampclothing.vercel.app",
   "https://vampclothing-admin.vercel.app"
 ];
 
+// ✅ Use cors middleware
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like Postman or mobile apps)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -31,19 +34,30 @@ app.use(cors({
   credentials: true,
 }));
 
-// Middleware
+// ✅ Handle preflight requests
+app.options("*", cors());
+
+// ✅ Body parser middleware
 app.use(express.json());
 
-// Routes
+// ✅ Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 
+// ✅ Root test route
 app.get('/', (req, res) => {
-  res.send("working");
+  res.send("Backend is working ✔️");
 });
 
+// ✅ Global error handler
+app.use((err, req, res, next) => {
+  console.error("❌ Error:", err.message);
+  res.status(500).json({ error: err.message });
+});
+
+// ✅ Start server
 app.listen(port, () => {
-  console.log(`server is working on port: ${port}`);
+  console.log(`🚀 Server running on port: ${port}`);
 });
